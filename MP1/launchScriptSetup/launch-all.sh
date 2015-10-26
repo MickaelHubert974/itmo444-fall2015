@@ -22,3 +22,15 @@ aws autoscaling create-launch-configuration --launch-configuration-name itmo444-
 aws autoscaling create-auto-scaling-group --auto-scaling-group-name itmo444-scaling-group --launch-configuration-name itmo444-launch-config --load-balancer-names itmo444-lb --health-check-type ELB --min-size 3 --max-size 6 --desired-capacity 3 --default-cooldown 600 --health-check-grace-period 120 --vpc-zone-identifier $5
 
 
+declare -a scaleupPolicy
+
+scaleupPolicy=(`aws autoscaling put-scaling-policy --policy-name scaleup-policy --auto-scaling-group-name itmo444-scaling-group --scaling-adjustment 1 --adjustment-type ChangeInCapacity`)
+
+declare -a scaledownPolicy
+
+scaledownPolicy=(`aws autoscaling put-scaling-policy --policy-name scaledown-policy --auto-scaling-group-name itmo444-scaling-group --scaling-adjustment -1 --adjustment-type ChangeInCapacity`)
+
+aws cloudwatch put-metric-alarm --alarm-name cpumore30 --alarm-description "Alarm if CPU exceeds 30 percent" --metric-name CPUUtilization --namespace AWS/EC2 --statistic Average --period 300 --threshold 30 --comparison-operator GreaterThanOrEqualToThreshold  --dimensions "Name=AutoScalingGroupName,Value=<itmo444-scaling-group>" --evaluation-periods 2 --alarm-actions $scaleupPolicy
+
+aws cloudwatch put-metric-alarm --alarm-name cpuless30 --alarm-description "Alarm if CPU beleow 10 percent" --metric-name CPUUtilization --namespace AWS/EC2 --statistic Average --period 300 --threshold 10 --comparison-operator LessThanOrEqualToThreshold  --dimensions "Name=AutoScalingGroupName,Value=<itmo444-scaling-group>" --evaluation-periods 2 --alarm-actions $scaledownPolicy
+
