@@ -9,7 +9,7 @@ $rds = new Aws\Rds\RdsClient([
 $result = $rds->createDBInstance([
     'AllocatedStorage' => 10,
     #'AutoMinorVersionUpgrade' => true || false,
-    #'AvailabilityZone' => '<string>',
+    'AvailabilityZone' => 'us-east-1a',
     #'BackupRetentionPeriod' => <integer>,
    # 'CharacterSetName' => '<string>',
    # 'CopyTagsToSnapshot' => true || false,
@@ -44,7 +44,7 @@ $result = $rds->createDBInstance([
    # ],
     #'TdeCredentialArn' => '<string>',
     #'TdeCredentialPassword' => '<string>',
-   # 'VpcSecurityGroupIds' => ['<string>', ...],
+    'VpcSecurityGroupIds' => 'sg-cc1029ab',
 ]);
 
 print "Create RDS DB results: \n";

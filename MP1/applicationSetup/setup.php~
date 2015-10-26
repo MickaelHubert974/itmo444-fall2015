@@ -9,13 +9,13 @@ $rds = new Aws\Rds\RdsClient([
 $result = $rds->createDBInstance([
     'AllocatedStorage' => 10,
     #'AutoMinorVersionUpgrade' => true || false,
-    #'AvailabilityZone' => '<string>',
+    'AvailabilityZone' => 'us-east-1a',
     #'BackupRetentionPeriod' => <integer>,
    # 'CharacterSetName' => '<string>',
    # 'CopyTagsToSnapshot' => true || false,
    # 'DBClusterIdentifier' => '<string>',
     'DBInstanceClass' => 'db.t1.micro', // REQUIRED
-    'DBInstanceIdentifier' => 'mp1-jrh', // REQUIRED
+    'DBInstanceIdentifier' => 'itmo444-db', // REQUIRED
     'DBName' => 'customerrecords',
     #'DBParameterGroupName' => '<string>',
     #'DBSecurityGroups' => ['<string>', ...],
@@ -25,7 +25,7 @@ $result = $rds->createDBInstance([
     #'Iops' => <integer>,
     #'KmsKeyId' => '<string>',
    # 'LicenseModel' => '<string>',
-  'MasterUserPassword' => 'letmein888',
+  'MasterUserPassword' => 'letmein42',
     'MasterUsername' => 'controller',
     #'MultiAZ' => true || false,
     #'OptionGroupName' => '<string>',
@@ -44,19 +44,19 @@ $result = $rds->createDBInstance([
    # ],
     #'TdeCredentialArn' => '<string>',
     #'TdeCredentialPassword' => '<string>',
-   # 'VpcSecurityGroupIds' => ['<string>', ...],
+    'VpcSecurityGroupIds' => 'sg-cc1029ab',
 ]);
 
 print "Create RDS DB results: \n";
 # print_r($rds);
 
-$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'mp1-jrh',
+$result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'itmo444-db',
 ]);
 
 
 // Create a table 
 $result = $rds->describeDBInstances([
-    'DBInstanceIdentifier' => 'mp1-jrh',
+    'DBInstanceIdentifier' => 'itmo444-db',
 ]);
 
 
@@ -65,7 +65,7 @@ print "============\n". $endpoint . "================\n";
 
 
 
-$link = mysqli_connect($endpoint,"controller","letmein888","3306") or die("Error " . mysqli_error($link)); 
+$link = mysqli_connect($endpoint,"controller","letmein42","3306") or die("Error " . mysqli_error($link)); 
 
 echo "Here is the result: " . $link;
 
