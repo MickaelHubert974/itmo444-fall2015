@@ -2,7 +2,7 @@
 
 declare -a instancesID
 
-mapfile -t instancesID < <(aws ec2 run-instances --image-id $1 --count $2 --instance-type $3 --security-group-ids $4 --subnet-id $5 --associate-public-ip-address --key-name $6 --user-data file://../environmentSetup/install-env.sh --iam-instance-profile Name=phpdevelopperRole --output table | grep InstanceId | sed "s/|//g" | sed "s/ //g" | sed "s/InstanceId//g")
+mapfile -t instancesID < <(aws ec2 run-instances --image-id $1 --count $2 --instance-type $3 --security-group-ids $4 --subnet-id $5 --associate-public-ip-address --key-name $6 --user-data file://../environmentSetup/install-webserver.sh --iam-instance-profile Name=phpdevelopperRole --output table | grep InstanceId | sed "s/|//g" | sed "s/ //g" | sed "s/InstanceId//g")
 
 echo ${instancesID[@]}
 
@@ -35,5 +35,5 @@ aws cloudwatch put-metric-alarm --alarm-name cpumore30 --alarm-description "Alar
 aws cloudwatch put-metric-alarm --alarm-name cpuless30 --alarm-description "Alarm if CPU beleow 10 percent" --metric-name CPUUtilization --namespace AWS/EC2 --statistic Average --period 300 --threshold 10 --comparison-operator LessThanOrEqualToThreshold  --dimensions "Name=AutoScalingGroupName,Value=<itmo444-scaling-group>" --evaluation-periods 2 --alarm-actions $scaledownPolicy
 
 #database
-aws rds create-db-instance --db-instance-identifier itmo444-db --allocated-storage 5 --db-instance-class db.m1.small --engine mysql --master-username myawsuser --master-user-password myawsuser
+#aws rds create-db-instance --db-instance-identifier itmo444-db --allocated-storage 5 --db-instance-class db.m1.small --engine mysql --master-username myawsuser --master-user-password myawsuser
 
