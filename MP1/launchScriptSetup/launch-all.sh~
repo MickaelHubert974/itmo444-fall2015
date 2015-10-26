@@ -34,3 +34,6 @@ aws cloudwatch put-metric-alarm --alarm-name cpumore30 --alarm-description "Alar
 
 aws cloudwatch put-metric-alarm --alarm-name cpuless30 --alarm-description "Alarm if CPU beleow 10 percent" --metric-name CPUUtilization --namespace AWS/EC2 --statistic Average --period 300 --threshold 10 --comparison-operator LessThanOrEqualToThreshold  --dimensions "Name=AutoScalingGroupName,Value=<itmo444-scaling-group>" --evaluation-periods 2 --alarm-actions $scaledownPolicy
 
+#database
+aws rds create-db-instance --db-instance-identifier itmo444-db --allocated-storage 5 --db-instance-class db.m1.small --engine mysql --master-username myawsuser --master-user-password myawsuser
+
