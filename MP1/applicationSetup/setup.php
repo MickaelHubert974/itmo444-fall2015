@@ -44,7 +44,7 @@ $result = $rds->createDBInstance([
    # ],
     #'TdeCredentialArn' => '<string>',
     #'TdeCredentialPassword' => '<string>',
-    'VpcSecurityGroupIds' => 'sg-cc1029ab',
+    #'VpcSecurityGroupIds' => ['<string>', ...],
 ]);
 
 print "Create RDS DB results: \n";
