@@ -63,22 +63,41 @@ $result = $rds->describeDBInstances([
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
 print "============\n". $endpoint . "================\n";
 
+// Create connection
+#http://www.w3schools.com/php/php_mysql_create_table.asp
 
+$servername = "itmo444-db.clbix9astiqc.us-east-1.rds.amazonaws.com";
+$username = "controller";
+$password = "letmein42";
+$dbname = "customerrecords";
 
-$link = mysqli_connect($endpoint,"controller","letmein42","3306") or die("Error " . mysqli_error($link)); 
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-echo "Here is the result: " . $link;
-
-
-$sql = "CREATE TABLE comments 
-(
-ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-PosterName VARCHAR(32),
-Title VARCHAR(32),
-Content VARCHAR(500)
+// sql to create table
+$sql = "CREATE TABLE MyGuests (
+id INT NOT NULL AUTO_INCREMENT,
+uname VARCHAR(20) NOT NULL,
+email VARCHAR(20) NOT NULL,
+phone VARCHAR(20) NOT NULL,
+raws3url VARCHAR(256) NOT NULL,
+finisheds3url VARCHAR(256) NOT NULL,    
+jpgfilename VARCHAR(256) NOT NULL,	
+status TINYINT(3),
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 
-$con->query($sql);
+if ($conn->query($sql) === TRUE) {
+    echo "Table MyGuests created successfully";
+} else {
+    echo "Error creating table: " . $conn->error;
+}
+
+$conn->close();
+
 
 ?>
 
