@@ -52,7 +52,7 @@ $result = $s3->createBucket([
 #));
 
 # PHP version 3
-$result = $client->putObject([
+$result = $s3->putObject([ #client modified to s3
     'ACL' => 'public-read',
     'Bucket' => $bucket,
    'Key' => $uploadfile
@@ -83,10 +83,10 @@ $result = $rds->describeDBInstances([
 
 
 $endpoint = $result['DBInstances']['Endpoint']['Address']
-    echo "============\n". $endpoint . "================";
+print "============\n". $endpoint . "================";
 
 //echo "begin database";^M
-$link = mysqli_connect($endpoint,"controller","letmein888","customerrecords") or die("Error " . mysqli_error($link));
+$link = mysqli_connect($endpoint,"controller","letmein42","customerrecords") or die("Error " . mysqli_error($link));
 
 
 /* check connection */

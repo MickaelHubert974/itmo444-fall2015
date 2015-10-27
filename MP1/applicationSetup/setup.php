@@ -79,7 +79,7 @@ if ($conn->connect_error) {
 
 // sql to create table
 $sql = "CREATE TABLE MyGuests (
-id INT NOT NULL AUTO_INCREMENT,
+id INT NOT NULL AUTO_INCREMENT primary key,
 uname VARCHAR(20) NOT NULL,
 email VARCHAR(20) NOT NULL,
 phone VARCHAR(20) NOT NULL,
