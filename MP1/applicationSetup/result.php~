@@ -82,8 +82,8 @@ $result = $rds->describeDBInstances([
 ]);
 
 
-$endpoint = $result['DBInstances']['Endpoint']['Address']
-print "============\n". $endpoint . "================";
+$endpoint = $result['DBInstances'][0]['Endpoint']['Address'];
+print "============\n". $endpoint . "================\n";
 
 //echo "begin database";^M
 $link = mysqli_connect($endpoint,"controller","letmein42","customerrecords") or die("Error " . mysqli_error($link));
@@ -97,19 +97,20 @@ if (mysqli_connect_errno()) {
 
 
 /* Prepared statement, stage 1: prepare */
-if (!($stmt = $link->prepare("INSERT INTO items (id, email,phone,filename,s3rawurl,s3finishedurl,status,issubscribed) VALUES (NULL,?,?,?,?,?,?,?)"))) {
+if (!($stmt = $link->prepare("INSERT INTO MyGuests (uname,email,phone,raws3url,finisheds3url,jpgfilename,status,date) VALUES (?,?,?,?,?,?,?,?)"))) {
     echo "Prepare failed: (" . $link->errno . ") " . $link->error;
 }
 
+$uname="test";
 $email = $_POST['useremail'];
 $phone = $_POST['phone'];
-$s3rawurl = $url; //  $result['ObjectURL']; from above
-$filename = basename($_FILES['userfile']['name']);
-$s3finishedurl = "none";
+$raws3ur = $url; //  $result['ObjectURL']; from above
+$finisheds3url = "none";
+$jpgfilename = basename($_FILES['userfile']['name']);
 $status =0;
-$issubscribed=0;
+$date=time();
 
-$stmt->bind_param("sssssii",$email,$phone,$filename,$s3rawurl,$s3finishedurl,$status,$issubscribed);
+$stmt->bind_param($uname,$email,$phone,$raws3ur,$finisheds3url,$jpgfilename,$status,$date);
 
 if (!$stmt->execute()) {
     echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
@@ -120,7 +121,7 @@ printf("%d Row inserted.\n", $stmt->affected_rows);
 /* explicit close recommended */
 $stmt->close();
 
-$link->real_query("SELECT * FROM items");
+$link->real_query("SELECT * FROM MyGuests");
 $res = $link->use_result();
 
 echo "Result set order...\n";
