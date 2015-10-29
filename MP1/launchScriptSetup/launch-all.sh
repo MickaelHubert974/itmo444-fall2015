@@ -40,3 +40,20 @@ aws elb configure-health-check --load-balancer-name itmo444-lb --health-check Ta
 #database
 #aws rds create-db-instance --db-instance-identifier itmo444-db --allocated-storage 5 --db-instance-class db.m1.small --engine mysql --master-username myawsuser --master-user-password myawsuser
 
+mapfile -t dbInstanceARR < <(aws rds describe-db-instances --output json | grep "\"DBInstanceIdentifier" | sed "s/[\"\:\, ]//g" | sed "s/DBInstanceIdentifier//g" )
+
+if [ ${#dbInstanceARR[@]} -gt 0 ]
+   then
+   echo "Chekcing RDS database-instances"
+   LENGTH=${#dbInstanceARR[@]}
+
+      for (( i=0; i<${LENGTH}; i++));
+      do
+      if [ ${dbInstanceARR[i]} == "itmo444-db" ] 
+     then 
+      echo "db exists"
+     else
+     aws rds create-db-instance --db-instance-identifier itmo444-db --db-instance-class db.t1.micro --engine MySQL --master-username controller --master-user-password letmein42 --allocated-storage 5
+      fi  
+     done
+fi

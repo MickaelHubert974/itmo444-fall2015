@@ -1,11 +1,15 @@
 <?php
 // Start the session^M
 require 'vendor/autoload.php';
+
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
     'region'  => 'us-east-1'
 ]);
 
+//DB created in launch-all script
+//uncomment to create db here
+/*
 $result = $rds->createDBInstance([
     'AllocatedStorage' => 10,
     #'AutoMinorVersionUpgrade' => true || false,
@@ -52,7 +56,7 @@ print "Create RDS DB results: \n";
 
 $result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'itmo444-db',
 ]);
-
+*/
 
 // Create a table 
 $result = $rds->describeDBInstances([
