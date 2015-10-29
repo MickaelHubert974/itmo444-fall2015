@@ -2,7 +2,7 @@
 
 declare -a instancesID
 
-mapfile -t instancesID < <(aws ec2 run-instances --image-id $1 --count $2 --instance-type $3 --security-group-ids $4 --subnet-id $5 --associate-public-ip-address --key-name $6 --user-data file://../environmentSetup/install-webserver.sh --iam-instance-profile Name=phpdevelopperRole --output table | grep InstanceId | sed "s/|//g" | sed "s/ //g" | sed "s/InstanceId//g")
+mapfile -t instancesID < <(aws ec2 run-instances --image-id $1 --count $2 --instance-type $3 --security-group-ids $4 --subnet-id $5 --associate-public-ip-address --key-name $6 --user-data file://../environmentSetup/install-webserver.sh --iam-instance-profile Name=$7 --output table | grep InstanceId | sed "s/|//g" | sed "s/ //g" | sed "s/InstanceId//g")
 
 echo "Launching the following instances : "
 echo ${instancesID[@]}
@@ -49,11 +49,12 @@ if [ ${#dbInstanceARR[@]} -gt 0 ]
 
       for (( i=0; i<${LENGTH}; i++));
       do
-      if [ ${dbInstanceARR[i]} == "itmo444-db2" ] 
+      if [ ${dbInstanceARR[i]} == "itmo444-db" ] 
      then 
       echo "db exists"
      else
-     aws rds create-db-instance --db-instance-identifier itmo444-db2 --db-instance-class db.t1.micro --engine MySQL --master-username controller --master-user-password letmein42 --allocated-storage 5
+     aws rds create-db-instance --db-instance-identifier itmo444-db --db-instance-class db.t1.micro --engine MySQL --master-username controller --master-user-password letmein42 --allocated-storage 5 --db-name customerrecords
+     wait db-instance-available --db-instance-identifier itmo444-db
       fi  
      done
 fi
