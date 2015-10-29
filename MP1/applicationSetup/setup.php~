@@ -66,7 +66,7 @@ print "============\n". $endpoint . "================\n";
 // Create connection
 #http://www.w3schools.com/php/php_mysql_create_table.asp
 
-$servername = "itmo444-db.clbix9astiqc.us-east-1.rds.amazonaws.com";
+$servername = $endpoint; 
 $username = "controller";
 $password = "letmein42";
 $dbname = "customerrecords";
@@ -87,8 +87,7 @@ raws3url VARCHAR(256) NOT NULL,
 finisheds3url VARCHAR(256) NOT NULL,    
 jpgfilename VARCHAR(256) NOT NULL,	
 status TINYINT(3),
-date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
+date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
 
 if ($conn->query($sql) === TRUE) {

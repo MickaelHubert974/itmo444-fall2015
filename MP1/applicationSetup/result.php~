@@ -13,6 +13,7 @@ $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 echo '<pre>';
 if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
     echo "File is valid, and was successfully uploaded.\n";
+    echo $uploadfile;
 } else {
     echo "Possible file upload attack!\n";
 }
@@ -55,8 +56,9 @@ $result = $s3->createBucket([
 $result = $s3->putObject([ #client modified to s3
     'ACL' => 'public-read',
     'Bucket' => $bucket,
-   'Key' => $uploadfile
-]);  
+    'Key' => $uploadfile,
+    'SourceFile'=> $uploadfile
+]); 
 
 
 $url = $result['ObjectURL'];
@@ -108,9 +110,9 @@ $raws3ur = $url; //  $result['ObjectURL']; from above
 $finisheds3url = "none";
 $jpgfilename = basename($_FILES['userfile']['name']);
 $status =0;
-$date=time();
+$date=date("Y-m-d H:i:s");
 
-$stmt->bind_param($uname,$email,$phone,$raws3ur,$finisheds3url,$jpgfilename,$status,$date);
+$stmt->bind_param('ssssssii',$uname,$email,$phone,$raws3ur,$finisheds3url,$jpgfilename,$status,$date);
 
 if (!$stmt->execute()) {
     echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
