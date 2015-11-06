@@ -99,20 +99,21 @@ if (mysqli_connect_errno()) {
 
 
 /* Prepared statement, stage 1: prepare */
-if (!($stmt = $link->prepare("INSERT INTO MyGuests (uname,email,phone,raws3url,finisheds3url,jpgfilename,status,date) VALUES (?,?,?,?,?,?,?,?)"))) {
+if (!($stmt = $link->prepare("INSERT INTO MyGuests (uname,email,phone,raws3url,finisheds3url,jpgfilename,status) VALUES (?,?,?,?,?,?,?)"))) {
     echo "Prepare failed: (" . $link->errno . ") " . $link->error;
 }
 
-$uname="test";
+
 $email = $_POST['useremail'];
+$uname=strstr($email, '@', true);
 $phone = $_POST['phone'];
 $raws3ur = $url; //  $result['ObjectURL']; from above
 $finisheds3url = "none";
 $jpgfilename = basename($_FILES['userfile']['name']);
 $status =0;
-$date=date("Y-m-d H:i:s");
 
-$stmt->bind_param('ssssssii',$uname,$email,$phone,$raws3ur,$finisheds3url,$jpgfilename,$status,$date);
+
+$stmt->bind_param('ssssssi',$uname,$email,$phone,$raws3ur,$finisheds3url,$jpgfilename,$status);
 
 if (!$stmt->execute()) {
     echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;

@@ -103,8 +103,8 @@ if (!($stmt = $link->prepare("INSERT INTO MyGuests (uname,email,phone,raws3url,f
     echo "Prepare failed: (" . $link->errno . ") " . $link->error;
 }
 
+$uname="test";
 $email = $_POST['useremail'];
-$uname=strstr($email, '@', true);
 $phone = $_POST['phone'];
 $raws3ur = $url; //  $result['ObjectURL']; from above
 $finisheds3url = "none";

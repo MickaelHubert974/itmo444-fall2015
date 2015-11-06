@@ -85,7 +85,7 @@ hawk
 
 aws rds wait db-instance-available --db-instance-identifier itmo444-db
 
-aws rds-create-db-instance-read-replica itmo444-db-replica -s itmo444-db
+aws rds create-db-instance-read-replica --db-instance-identifier itmo444-db-replica --source-db-instance-identifier itmo444-db
 
 
 
