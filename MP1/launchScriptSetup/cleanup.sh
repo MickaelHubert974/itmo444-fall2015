@@ -58,7 +58,7 @@ echo "SCALING GROUPS to delete..."
 
 aws autoscaling update-auto-scaling-group --auto-scaling-group-name $SCALENAME --min-size 0 --max-size 0
 
-sleep 500
+sleep 1000
 
 aws autoscaling describe-auto-scaling-groups --auto-scaling-group-name $SCALENAME
 

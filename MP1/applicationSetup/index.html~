@@ -16,6 +16,9 @@
   <p>
   Click here to access to the <a href="page2.html">second page</a>.
   </p>
+  <p>
+  Click here to access to the <a href="gallery.php">Gallery</a>.
+  </p>
   
  </body>
 </html>
