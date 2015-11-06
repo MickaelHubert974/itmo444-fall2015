@@ -53,10 +53,11 @@ $result = $rds->createDBInstance([
 
 print "Create RDS DB results: \n";
 # print_r($rds);
+*/
 
 $result = $rds->waitUntil('DBInstanceAvailable',['DBInstanceIdentifier' => 'itmo444-db',
 ]);
-*/
+
 
 // Create a table 
 $result = $rds->describeDBInstances([

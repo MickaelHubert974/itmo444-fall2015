@@ -20,4 +20,6 @@ sudo mv vendor /var/www/html &> /tmp/movevendor.txt
 
 sudo php /var/www/html/setup.php &> /tmp/database-setup.txt
 
+sudo chmod 600 /var/www/html/setup.php
+
 echo "Hello!" > /tmp/hello.txt
