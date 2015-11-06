@@ -42,4 +42,4 @@ aws elb configure-health-check --load-balancer-name itmo444-lb --health-check Ta
 
 aws rds create-db-instance --db-instance-identifier itmo444-db --db-instance-class db.t1.micro --engine MySQL --master-username controller --master-user-password letmein42 --allocated-storage 5 --db-name customerrecords
 
-wait db-instance-available --db-instance-identifier itmo444-db
+aws rds wait db-instance-available --db-instance-identifier itmo444-db
