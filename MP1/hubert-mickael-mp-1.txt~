@@ -1,0 +1,12 @@
+Get GITHUB repositories :
+
+Execute MP1/launScriptSetup/launch.sh
+with params in this order :
+- ami image-id
+- count
+- instance-type
+- security-group-ids
+- subnet
+- key-name
+- iam-profile
+

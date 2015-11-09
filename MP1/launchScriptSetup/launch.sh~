@@ -11,3 +11,4 @@ echo ${instancesID[@]}
 aws ec2 wait instance-running --instance-ids ${instancesID[@]}
 
 
+

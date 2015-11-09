@@ -1,0 +1,13 @@
+Get GITHUB repositories :
+https://github.com/MickaelHubert974/itmo444-fall2015.git
+
+Execute MP1/launScriptSetup/launch.sh
+with params in this order :
+- ami image-id
+- count
+- instance-type
+- security-group-ids
+- subnet
+- key-name
+- iam-profile
+
