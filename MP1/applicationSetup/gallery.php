@@ -5,7 +5,7 @@
 
 <?php
 session_start();
-$email =$_GET['email'];
+$email =$_GET['useremail'];
 echo $email;
 
 

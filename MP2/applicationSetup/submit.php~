@@ -5,6 +5,7 @@ session_start();
 // In PHP versions earlier than 4.1.0, $HTTP_POST_FILES should be used instead
 // of $_FILES.
 
+
 echo $_POST['useremail'];
 
 $uploaddir = '/tmp/';
@@ -119,7 +120,15 @@ if (!$stmt->execute()) {
 
 //publishing";
 
+use Aws\Sns\SnsClient;
+
 $arn = $_SESSION['arn'];
+
+$client = SnsClient::factory(array(
+    'version' => 'latest',
+    'region'  => 'us-east-1'
+));
+
 $result = $client->publish(array(
     	'TopicArn' => $arn,
     	// Message is required
@@ -137,7 +146,7 @@ $result = $client->publish(array(
 ));
 
 
-header('Location:gallery.php'); 
+header('Location:mygallery.php'); 
 
 //add code to detect if subscribed to SNS topic 
 //if not subscribed then subscribe the user and UPDATE the column in the database with a new value 0 to 1 so that then each time you don't have to resubscribe them
