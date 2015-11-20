@@ -7,9 +7,9 @@ cd ~/
 
 git clone https://github.com/MickaelHubert974/itmo444-fall2015.git
 
-sudo cp ~/itmo444-fall2015/MP1/applicationSetup/images /var/www/html/images
-sudo cp ~/itmo444-fall2015/MP1/applicationSetup/*.html /var/www/html
-sudo cp ~/itmo444-fall2015/MP1/applicationSetup/*.php /var/www/html
+sudo cp ~/itmo444-fall2015/MP2/applicationSetup/images /var/www/html/images
+sudo cp ~/itmo444-fall2015/MP2/applicationSetup/*.html /var/www/html
+sudo cp ~/itmo444-fall2015/MP2/applicationSetup/*.php /var/www/html
 
 
 curl -sS https://getcomposer.org/installer | sudo php &> /tmp/getcomposer.txt
