@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>
+   Mickael HUBERT Website Page 1
+  </title>
+ </head>
+ <body>
+  
+  <p>
+   Hello ! You are on Mickael Hubert's website and this is ITMO444 !
+  </p>
+  
+  <img src="https://s3.amazonaws.com/itmo444-mickaelhubert/mickey.JPG" alt="mickey" style="width:500px;height:300px;">
+  
+  <p>
+  Click here to access to the <a href="page2.html">second page</a>.
+  </p>
+  <p>
+  Click here to access to the <a href="gallery.php">Gallery</a>.
+  </p>
+  
+ </body>
+</html>
