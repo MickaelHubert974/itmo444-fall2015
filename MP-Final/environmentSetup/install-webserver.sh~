@@ -7,8 +7,9 @@ cd ~/
 
 git clone https://github.com/MickaelHubert974/itmo444-fall2015.git
 
-sudo cp ~/itmo444-fall2015/MP-Final/applicationSetup/images /var/www/html/images
+sudo cp ~/itmo444-fall2015/MP2/applicationSetup/images /var/www/html/images
 sudo cp ~/itmo444-fall2015/MP-Final/applicationSetup/* /var/www/html
+sudo cp ~/itmo444-fall2015/MP2/applicationSetup/css /var/www/html/css
 
 
 
