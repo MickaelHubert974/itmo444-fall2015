@@ -89,7 +89,7 @@ $res = $link->use_result();
 
 echo "<br/>";
 while ($row = $res->fetch_assoc()) {
-    echo "<img src =\" " . $row['raws3url'] . "\" />";
+    echo "<img src =\" " . $row['finisheds3url'] . "\" />";
 }
 $link->close();
 ?>

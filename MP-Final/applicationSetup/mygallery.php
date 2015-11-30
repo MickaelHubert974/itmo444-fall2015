@@ -42,10 +42,15 @@ $res = $link->use_result();
 
 echo "<br/>";
 while ($row = $res->fetch_assoc()) {
-    echo "<img src =\" " . $row['raws3url'] . "\" />";
+    echo "Before : <img src =\" " . $row['raws3url'] . "\" />";
+    echo "After : <img src =\" " . $row['finisheds3url'] . "\" />";
+    echo "<br/>";
 }
+
+
 $link->close();
 ?>
+
 
 
 </body>

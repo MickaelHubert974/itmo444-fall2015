@@ -1,27 +1,54 @@
-<html>
-<head><title>Gallery</title>
-</head>
-<body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../favicon.ico">
 
-<!-- The data encoding type, enctype, MUST be specified as below -->
-<form enctype="multipart/form-data" action="submit.php" method="POST">
-    <!-- MAX_FILE_SIZE must precede the file input field -->
-    <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
-    <!-- Name of input element determines name in $_FILES array -->
-    Send this file: <input name="userfile" type="file" /><br />
-Enter Email of user: <input type="email" name="useremail"><br />
-Enter Phone of user (1-XXX-XXX-XXXX): <input type="phone" name="phone">
+    <title>Access to the gallery</title>
 
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
-<input type="submit" value="Send File" />
-</form>
-<hr />
-<!-- The data encoding type, enctype, MUST be specified as below -->
-<form enctype="multipart/form-data" action="gallery.php" method="POST">
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
     
-Enter Email of user for gallery to browse: <input type="email" name="useremail">
-<input type="submit" value="Load Gallery" />
-</form>
+
+
+      <form class="form-signin" enctype="multipart/form-data" action="submit.php" method="POST">
+        <h2 class="form-signin-heading">Add photo to gallery</h2>
+        <input type="file" name="userfile" id="userfile" required>
+        <label for="inputEmail" class="sr-only">Email address for gallery to browse</label>
+        <input type="email" name="useremail" id="useremail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="phone" class="sr-only">Phone</label>
+        <input type="phone" name="phone" id="phone" class="form-control" placeholder="Phone number (1-XXX-XXX-XXXX)"required>
+
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Send File"/>
+      </form>
+      
+      <form class="form-signin" enctype="multipart/form-data" action="gallery.php" method="POST">
+        <h2 class="form-signin-heading">My gallery</h2>
+        <label for="inputEmail" class="sr-only">Email address for gallery to browse</label>
+        <input type="email" name="useremail" id="useremail" class="form-control" placeholder="Email address" required autofocus>
+
+
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Load Gallery"/>
+      </form>
+
+    </div> <!-- /container -->
+
+  </body>
+</html>
 
 
 
@@ -68,5 +95,4 @@ $link->close();
 ?>
 
 
-</body>
-</html>
+

@@ -65,6 +65,21 @@ $result = $s3->putObject([ #client modified to s3
 $url = $result['ObjectURL'];
 echo $url;
 
+//Transform image to thumbnail
+$image= new Imagick(glob($uploadfile));
+$image->thumbnailImage(100,0);
+$image->setImageFormat ("jpg");
+$image->writeImage('/tmp/thumbimage.jpg');
+
+$resultthumb = $s3->putObject([
+    'ACL' => 'public-read',
+    'Bucket' => $bucket,
+    'Key' => "thumb".$uploadfile,
+    'SourceFile' => "/tmp/thumbimage.jpg",
+]);
+
+$urlthumb = $resultthumb['ObjectURL'];
+
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
     'region'  => 'us-east-1'
@@ -108,7 +123,7 @@ $email = $_POST['useremail'];
 $uname=strstr($email, '@', true);
 $phone = $_POST['phone'];
 $raws3ur = $url; //  $result['ObjectURL']; from above
-$finisheds3url = "none";
+$finisheds3url = $urlthumb;
 $jpgfilename = basename($_FILES['userfile']['name']);
 $status =0;
 
