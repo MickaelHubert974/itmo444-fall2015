@@ -40,6 +40,12 @@ aws elb register-instances-with-load-balancer --load-balancer-name itmo444-lb --
 echo "Health check configuring"
 aws elb configure-health-check --load-balancer-name itmo444-lb --health-check Target=HTTP:80/,Interval=30,UnhealthyThreshold=2,HealthyThreshold=2,Timeout=3
 
+echo "Add cookie stickiness policy"
+aws elb create-lb-cookie-stickiness-policy --load-balancer-name itmo444-lb --policy-name my-duration-cookie-policy --cookie-expiration-period 500
+aws elb set-load-balancer-policies-of-listener --load-balancer-name itmo444-lb --load-balancer-port 80 --policy-names my-duration-cookie-policy
+aws elb describe-load-balancers --load-balancer-name itmo444-lb
+
+
 echo "Autoscaling launch configuration"
 aws autoscaling create-launch-configuration --launch-configuration-name itmo444-launch-config --iam-instance-profile phpdevelopperRole --user-data file://../environmentSetup/install-webserver.sh  --image-id $1 --security-groups $4 --instance-type $3 --key-name $6 --associate-public-ip-address  
 
