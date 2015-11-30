@@ -42,7 +42,7 @@ aws elb configure-health-check --load-balancer-name itmo444-lb --health-check Ta
 
 echo "Add cookie stickiness policy"
 aws elb create-lb-cookie-stickiness-policy --load-balancer-name itmo444-lb --policy-name my-duration-cookie-policy --cookie-expiration-period 500
-aws elb set-load-balancer-policies-of-listener --load-balancer-name itmo444-lb --load-balancer-port 443 --policy-names my-duration-cookie-policy
+aws elb set-load-balancer-policies-of-listener --load-balancer-name itmo444-lb --load-balancer-port 80 --policy-names my-duration-cookie-policy
 aws elb describe-load-balancers --load-balancer-name itmo444-lb
 
 #database

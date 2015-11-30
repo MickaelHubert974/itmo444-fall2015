@@ -45,58 +45,6 @@ aws elb create-lb-cookie-stickiness-policy --load-balancer-name itmo444-lb --pol
 aws elb set-load-balancer-policies-of-listener --load-balancer-name itmo444-lb --load-balancer-port 80 --policy-names my-duration-cookie-policy
 aws elb describe-load-balancers --load-balancer-name itmo444-lb
 
-#database
-
-echo "Creating database and read replica"
-
-aws rds create-db-instance --db-instance-identifier itmo444-db --db-instance-class db.t1.micro --engine MySQL --master-username controller --master-user-password letmein42 --allocated-storage 5 --db-name customerrecords
-
-hawk() {
-cat <<"EOT"
-
-                                  .  .  .  .
-                                  .  |  |  .
-                               .  |        |  .
-                               .              .
- ___     ___    _________    . |  (\.|\/|./)  | .   ___   ____
-|   |   |   |  /    _    \   .   (\ |||||| /)   .  |   | /   /
-|   |___|   | |    /_\    |  |  (\  |/  \|  /)  |  |   |/   /
-|           | |           |    (\            /)    |       /
-|    ___    | |    ___    |   (\              /)   |       \
-|   |   |   | |   |   |   |    \      \/      /    |   |\   \
-|___|   |___| |___|   |___|     \____/\/\____/     |___| \___\
-                                    |0\/0|
-                                     \/\/
-                                      \/
-
-EOT
-}
-
-hawk
-
-cow(){
-cat <<"EOT"
-                   ________________________________
-          (__)    /                                \         
-          (oo)   ( Please wait...might take a while )
-   /-------\/  --'\________________________________/        
-  / |     ||
- *  ||----||             
-    ^^    ^^
-EOT
-}
-cow
-
-
-aws rds wait db-instance-available --db-instance-identifier itmo444-db
-
-
-#arbitrary sleep, might need to wait more...
-sleep 300
-
-firefox $lburl &
-
-
 
 
 
