@@ -40,6 +40,11 @@ aws elb register-instances-with-load-balancer --load-balancer-name itmo444-lb --
 echo "Health check configuring"
 aws elb configure-health-check --load-balancer-name itmo444-lb --health-check Target=HTTP:80/,Interval=30,UnhealthyThreshold=2,HealthyThreshold=2,Timeout=3
 
+echo "Add cookie stickiness policy"
+aws elb create-lb-cookie-stickiness-policy --load-balancer-name itmo444-lb --policy-name my-duration-cookie-policy --cookie-expiration-period 500
+aws elb set-load-balancer-policies-of-listener --load-balancer-name itmo444-lb --load-balancer-port 80 --policy-names my-duration-cookie-policy
+aws elb describe-load-balancers --load-balancer-name itmo444-lb
+
 #database
 
 echo "Creating database and read replica"
