@@ -2,8 +2,7 @@
 <?php
 // Start the session
 session_start();
-// In PHP versions earlier than 4.1.0, $HTTP_POST_FILES should be used instead
-// of $_FILES.
+
 
 
 echo $_POST['useremail'];
@@ -24,8 +23,7 @@ print_r($_FILES);
 
 print "</pre>";
 require 'vendor/autoload.php';
-#use Aws\S3\S3Client;
-#$client = S3Client::factory();
+
 $s3 = new Aws\S3\S3Client([
     'version' => 'latest',
     'region'  => 'us-east-1'
@@ -34,26 +32,14 @@ $s3 = new Aws\S3\S3Client([
 
 $bucket = uniqid("php-mh-",false);
 
-#$result = $client->createBucket(array(
-#    'Bucket' => $bucket
-#));
+
 # AWS PHP SDK version 3 create bucket
 $result = $s3->createBucket([
     'ACL' => 'public-read',
     'Bucket' => $bucket
 ]);
 
-#$client->waitUntilBucketExists(array('Bucket' => $bucket));
-#Old PHP SDK version 2
-#$key = $uploadfile;
-#$result = $client->putObject(array(
-#    'ACL' => 'public-read',
-#    'Bucket' => $bucket,
-#    'Key' => $key,
-#    'SourceFile' => $uploadfile 
-#));
 
-# PHP version 3
 $result = $s3->putObject([ #client modified to s3
     'ACL' => 'public-read',
     'Bucket' => $bucket,
@@ -88,15 +74,7 @@ $rds = new Aws\Rds\RdsClient([
 
 $result = $rds->describeDBInstances([
     'DBInstanceIdentifier' => 'itmo444-db',
-    #'Filters' => [
-    #    [
-    #        'Name' => '<string>', // REQUIRED
-    #        'Values' => ['<string>', ...], // REQUIRED
-    #    ],
-        // ...
-   # ],
-   # 'Marker' => '<string>',
-   # 'MaxRecords' => <integer>,
+
 ]);
 
 
@@ -163,10 +141,5 @@ $result = $client->publish(array(
 
 header('Location:mygallery.php'); 
 
-//add code to detect if subscribed to SNS topic 
-//if not subscribed then subscribe the user and UPDATE the column in the database with a new value 0 to 1 so that then each time you don't have to resubscribe them
-
-// add code to generate SQS Message with a value of the ID returned from the most recent inserted piece of work
-//  Add code to update database to UPDATE status column to 1 (in progress)
 
 ?>
