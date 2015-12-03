@@ -1,4 +1,4 @@
-Get GITHUB repositories :
+Get my GITHUB repositories :
 https://github.com/MickaelHubert974/itmo444-fall2015.git
 
 Execute MP-Final/launScriptSetup/launch.sh

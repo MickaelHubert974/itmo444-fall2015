@@ -79,7 +79,7 @@ else{
     <div class="container">
     
 
-      <form>
+      <form method="post">
         <h2 class="form-signin-heading">Subscription</h2>
         <input class="btn btn-lg btn-primary btn-block" type="submit" name="conf" value="Confirm subscription"/>
         <input class="btn btn-lg btn-primary btn-block" type="submit" name="subs" value="Subscribe" />

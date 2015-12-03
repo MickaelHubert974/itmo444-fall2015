@@ -11,7 +11,7 @@ print "Hello $email ! \n";
 
 
 $arn = 'arn:aws:sns:us-east-1:519662356897:ImageUploaded';//hardcoded for now
-
+$_SESSION['arn']=$arn;
 $client = SnsClient::factory(array(
     'version' => 'latest',
     'region'  => 'us-east-1'
